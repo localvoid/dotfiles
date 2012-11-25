@@ -260,21 +260,7 @@
 ;; == javascript
 ;;
 (setq js-indent-level 2)
-(defun flymake-jshint-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    (list "jshint" (list local-file))))
-
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.js\\'" flymake-jshint-init))
-
-(add-to-list 'flymake-err-line-patterns
-             '("^  [[:digit:]]+ \\([[:digit:]]+\\),\\([[:digit:]]+\\): \\(.+\\)$"
-               nil 1 2 3))
-
+(require 'flymake-jshint)
 
 (add-hook 'js-mode-hook
           (lambda ()
