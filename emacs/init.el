@@ -1,6 +1,3 @@
-;;(setq server-use-tcp t)
-;;(setq server-host "127.0.0.1")
-
 (when (daemonp)
   (defadvice desktop-restore-file-buffer
     (around my-desktop-restore-file-buffer-advice)
@@ -103,6 +100,7 @@
 (setq default-fill-column 72)
 (setq create-lockfiles nil)
 (setq require-final-newline nil)
+(put 'downcase-region 'disabled nil)
 
 (show-paren-mode t)
 (global-auto-revert-mode t)
@@ -221,8 +219,6 @@
 
 (global-set-key "\C-xc" 'comment-or-uncomment-region)
 
-;;(global-set-key [(control f7)] 'query-replace)
-
 (global-set-key [(f7)] 'recompile)
 (global-set-key [(shift f7)] 'compile)
 (global-set-key [(f8)] 'next-error)
@@ -230,10 +226,6 @@
 
 (global-set-key [(f6)] 'gud-step)
 (global-set-key [(control f6)] 'gud-next)
-;;'gud-break
-;;'gud-remove
-;;'gud-run
-;;'gud-watch
 
 
 ;; == Associate modes with file extensions
@@ -245,11 +237,6 @@
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
-
-
-(put 'downcase-region 'disabled nil)
-
-;; ff-get-other-file!!
 
 ;; == emacs lisp
 ;;
