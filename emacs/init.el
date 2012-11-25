@@ -56,8 +56,10 @@
 ;; == Load Major Customizations
 ;;
 (require 'void-c)
-(require 'session-manager)
 
+(when (daemonp)
+  (require 'session-manager)
+  (session-manager-init (daemonp)))
 
 ;; == Customizations
 ;;
