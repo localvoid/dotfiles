@@ -262,6 +262,9 @@
 
 ;; == shell-script mode
 ;;
+(setq sh-basic-offset 2)
+(setq sh-indentation 2)
+
 (add-hook 'shell-script-mode-hook
           (lambda ()
             (flymake-shell-load)))
