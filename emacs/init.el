@@ -37,7 +37,7 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 (setq frame-background-mode 'dark)
-(load-theme 'tango-dark)
+(load-theme 'sanityinc-tomorrow-night t)
 
 ;; == Ubiquitous packages
 ;;  These should be loaded on startup rather than autoloaded on demand
@@ -71,7 +71,7 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(add-to-list 'default-frame-alist '(font . "Consolas-11"))
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11"))
 (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
 (add-to-list 'default-frame-alist '(menu-bar-lines . 0))
 
