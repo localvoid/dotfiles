@@ -71,7 +71,7 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11"))
+(add-to-list 'default-frame-alist '(font . "Ubuntu Mono-11"))
 (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
 (add-to-list 'default-frame-alist '(menu-bar-lines . 0))
 
@@ -259,3 +259,9 @@
 (add-hook 'python-mode-hook
           (lambda ()
             (yas-minor-mode t)))
+
+;; == shell-script mode
+;;
+(add-hook 'shell-script-mode-hook
+          (lambda ()
+            (flymake-shell-load)))
