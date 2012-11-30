@@ -114,7 +114,7 @@
 (electric-layout-mode -1)
 
 (setq whitespace-style '(face empty tabs lines-tail trailing))
-(setq whitespace-line-column 72)
+(setq whitespace-line-column 80)
 
 (add-hook 'prog-mode-hook
           (lambda ()
