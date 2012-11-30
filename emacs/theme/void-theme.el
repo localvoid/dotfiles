@@ -1,7 +1,3 @@
-(eval-when-compile
-  (require 'cl))
-
-
 (deftheme void "void theme")
 
 (let ((background   "#1c1c1c")
