@@ -98,7 +98,7 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq split-width-threshold most-positive-fixnum)
 (setq resize-mini-windows t)
-(setq default-fill-column 72)
+(setq fill-column 80)
 (setq create-lockfiles nil)
 (setq require-final-newline nil)
 (put 'downcase-region 'disabled nil)
