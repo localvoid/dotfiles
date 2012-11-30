@@ -20,7 +20,13 @@ if [ -n "$TERMCAP" ] && [ "$TERM" = "screen-256color" ]; then
     export TERMCAP
 fi
 
-PS1="\e[48;5;236;38;5;220m\u\e[38;5;244m@\e[38;5;195m\h\e[38;5;244m:\e[38;5;255m\w\e[0m\n$ "
+PS1="\e[48;5;236;38;5;220m\u\e[38;5;244m@\e[38;5;195m\h\e[38;5;244m:\e[38;5;255m\w\e[0m\n"
+if [ -f ~/configs/bash/git-prompt.sh ]; then
+    . ~/configs/bash/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE="enabled"
+    PS1="${PS1}\$(__git_ps1 '[%s]')"
+fi
+PS1="${PS1}> "
 
 export EDITOR="emacsclient -t -s main -a emacs -nw"
 export VISUAL="emacsclient -t -s main -a emacs -nw"
