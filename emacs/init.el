@@ -21,6 +21,7 @@
 (setq dotfiles-dir (expand-file-name "~/.emacs.d/"))
 
 (add-to-list 'load-path dotfiles-dir)
+(add-to-list 'custom-theme-load-path (concat dotfiles-dir "theme/"))
 
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
@@ -37,7 +38,7 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 (setq frame-background-mode 'dark)
-(load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'void t)
 
 ;; == Ubiquitous packages
 ;;  These should be loaded on startup rather than autoloaded on demand
