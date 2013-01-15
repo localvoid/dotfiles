@@ -77,11 +77,11 @@
 (font-lock-add-keywords 'c++-mode
   '(("\\<\\(FIXME\\|TODO\\):" 1 font-lock-warning-face prepend)))
 
-(c-add-style "void" void-c-style)
 
-(add-hook 'c-common-mode-hook
+(add-hook 'c++-mode-hook
           '(lambda ()
-             ((c-set-style "void"))))
+             (c-add-style "void" void-c-style t)
+             (c-set-style "void")))
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 

@@ -219,6 +219,17 @@
 
      `(regex-tool-matched-face ((t (,@fg-nil ,@bg-nil :inherit match))))
 
+     ;; Rpm Spec
+     `(rpm-spec-tag-face ((t (,@fg-blue))))
+     `(rpm-spec-obsolete-tag-face ((t (,fg-nil ,bg-red))))
+     `(rpm-spec-macro-face ((t (,@fg-purple))))
+     `(rpm-spec-var-face ((t (,@fg-green))))
+     `(rpm-spec-doc-face ((t (,@fg-comment))))
+     `(rpm-spec-dir-face ((t (,@fg-aqua))))
+     `(rpm-spec-package-face ((t (,@fg-orange))))
+     `(rpm-spec-ghost-face ((t (,@fg-red))))
+     `(rpm-spec-section-face ((t (,@fg-yellow))))
+
      )))
 
 

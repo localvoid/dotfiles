@@ -50,14 +50,6 @@
 (require 'flymake)
 (require 'flymake-cursor)
 
-;; == Load Major Customizations
-;;
-(require 'void-c)
-
-(when (daemonp)
-  (require 'session-manager)
-  (session-manager-init (daemonp)))
-
 ;; == Customizations
 ;;
 (prefer-coding-system 'utf-8)
@@ -268,3 +260,12 @@
 (add-hook 'shell-script-mode-hook
           (lambda ()
             (flymake-shell-load)))
+
+;; == Load Major Customizations
+;;
+(require 'void-c)
+(require 'cmake-mode)
+
+(when (daemonp)
+  (require 'session-manager)
+  (session-manager-init (daemonp)))
