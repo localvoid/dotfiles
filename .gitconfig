@@ -16,6 +16,13 @@
 	log1 = log --pretty=oneline --abbrev-commit
 	rlog = log --pretty=format:\"%h %Cblue%cr%Creset %cn %Cgreen%s%Creset\"
         lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+        mlog = log --merge -p
+        lc = log ORIG_HEAD.. --stat --no-merges
+        br = branch
+        co = checkout
+        st = status
+        ci = commit
+        gmf = merge --ff-only
 [push]
 	default = matching
 [merge]
