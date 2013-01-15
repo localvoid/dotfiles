@@ -8,24 +8,12 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# Enable 256 color
-case "$TERM" in
-    'xterm') TERM=xterm-256color;;
-    'screen') TERM=screen-256color;;
-esac
-export TERM
-
-if [ -n "$TERMCAP" ] && [ "$TERM" = "screen-256color" ]; then
-    TERMCAP=$(echo "$TERMCAP" | sed -e 's/Co#8/Co#256/g')
-    export TERMCAP
-fi
-
 PS1="\e[48;5;236;38;5;220m\u\e[38;5;244m@\e[38;5;195m\h\e[38;5;244m:\e[38;5;255m\w\e[0m\n"
-if [ -f ~/configs/bash/git-prompt.sh ]; then
-    . ~/configs/bash/git-prompt.sh
-    GIT_PS1_SHOWDIRTYSTATE="enabled"
-    PS1="${PS1}\$(__git_ps1 '[%s]')"
-fi
+#if type __git_ps1 | grep -q '^function$' 2>/dev/null; then
+#    GIT_PS1_SHOWDIRTYSTATE="enabled"
+#    PS1="${PS1}\$(__git_ps1 '[%s]')"
+#fi
+
 PS1="${PS1}> "
 
 export EDITOR="emacsclient -t -s main -a emacs -nw"
@@ -55,6 +43,4 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
-shopt -s histappend
 shopt -s autocd
-shopt -s checkwinsize
