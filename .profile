@@ -1,5 +1,23 @@
-export NPM_PACKAGES=$HOME/.npm-packages
+# GPG KEY
+export GPGKEY=AE784DD2
+
+
 export MOZ_DISABLE_PANGO=1
-export NODE_PATH=$NODE_PATH:$NPM_PACKAGES/lib/node_modules
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$NPM_PACKAGES/bin
+
+# NodeJS
+export NPM_PACKAGES=$HOME/.npm-packages
 export MANPATH=$MANPATH:$NPM_PACKAGES/share/man
+export NODE_PATH=$NODE_PATH:$NPM_PACKAGES/lib/node_modules
+
+# Go
+export GOROOT=$HOME/go
+export GOPATH=$GOROOT:.
+export GOARCH=amd64
+export GOOS=linux
+
+# Dart
+export DARTSDK=$HOME/dart-sdk
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:$NPM_PACKAGES/bin:$GOROOT/bin:$DARTSDK/bin
+
+export PATH

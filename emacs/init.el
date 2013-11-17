@@ -33,9 +33,9 @@
 
 (package-initialize)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (setq frame-background-mode 'dark)
 (load-theme 'void t)
@@ -63,7 +63,7 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(add-to-list 'default-frame-alist '(font . "Ubuntu Mono-11"))
+(add-to-list 'default-frame-alist '(font . "Monospace-10"))
 (add-to-list 'default-frame-alist '(tool-bar-lines . 0))
 (add-to-list 'default-frame-alist '(menu-bar-lines . 0))
 
@@ -91,15 +91,14 @@
 (setq resize-mini-windows t)
 (setq fill-column 80)
 (setq create-lockfiles nil)
-(setq require-final-newline nil)
-(put 'downcase-region 'disabled nil)
+(setq mode-require-final-newline nil)
 
 (show-paren-mode t)
 (global-auto-revert-mode t)
 
 (set-default 'indent-tabs-mode nil)
-
-(put 'upcase-region 'disabled nil)
+(setq default-tab-width 2)
+(setq tab-width 2)
 
 (electric-pair-mode -1)
 (electric-indent-mode -1)
@@ -111,6 +110,8 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (whitespace-mode)))
+
+(setq disabled-command-function nil)
 
 ;; == ispell
 ;;
@@ -129,10 +130,11 @@
 (ido-mode t)
 (setq ido-enable-prefix t
       ido-create-new-buffer 'always
-      ido-use-filename-at-point 'guess
+      ido-use-filename-at-point nil
       ido-max-prospects 10
       ido-everywhere t
       ido-enable-flex-matching nil
+      ido-use-virtual-buffers t
       ido-save-directory-list-file (concat dotfiles-dir "data/ido-last"))
 
 ;; == winner-mode
@@ -159,10 +161,30 @@
 
 ;; == iBuffer
 ;;
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-switch-to-saved-filter-groups "default")
-            (ibuffer-do-sort-by-filename/process)))
+(eval-after-load 'ibuffer
+  '(require 'ibuffer-vc))
+
+(setq ibuffer-saved-filter-groups
+      '(("default"
+         ("prog" (or
+                  (mode . c-mode)
+                  (mode . c++-mode)
+                  (mode . python-mode)
+                  (mode . html-mode)
+                  (mode . scss-mode)
+                  (mode . js-mode)
+                  (mode . shell-script-mode)
+                  (mode . emacs-lisp-mode)))
+         ("dired" (mode . dired-mode))
+         ("emacs" (or
+                   (name . "^\\*scratch\\*$")
+                   (name . "^\\*Messages\\*$"))))))
+
+(add-hook 'ibuffer-hook
+     (lambda ()
+       (ibuffer-vc-set-filter-groups-by-vc-root)
+       (unless (eq ibuffer-sorting-mode 'filename/process)
+         (ibuffer-do-sort-by-filename/process))))
 
 ;; == Eshell mode
 (setq eshell-cmpl-cycle-completions nil
@@ -223,11 +245,9 @@
 ;; == Associate modes with file extensions
 ;;
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG$" . diff-mode))
-(add-to-list 'auto-mode-alist '("wscript" . python-mode))
-(add-to-list 'auto-mode-alist '("activate" . shell-script-mode))
-(add-to-list 'auto-mode-alist '("PKGBUILD" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 
 ;; == emacs lisp
@@ -238,8 +258,9 @@
 
 ;; == javascript
 ;;
-(setq js-indent-level 2)
 (require 'flymake-jshint)
+
+(setq js-indent-level 2)
 
 (add-hook 'js-mode-hook
           (lambda ()
@@ -248,8 +269,34 @@
 
 ;; == python
 ;;
+(require 'python)
+(require 'flymake-python-pyflakes)
+
+(defadvice python-calculate-indentation (around outdent-closing-brackets)
+  "Handle lines beginning with a closing bracket and indent them so that
+  they line up with the line containing the corresponding opening bracket."
+  (save-excursion
+    (beginning-of-line)
+    (let ((syntax (syntax-ppss)))
+      (if (and (not (eq 'string (syntax-ppss-context syntax)))
+               (python-continuation-line-p)
+               (cadr syntax)
+               (skip-syntax-forward "-")
+               (looking-at "\\s)"))
+          (progn
+            (forward-char 1)
+            (ignore-errors (backward-sexp))
+            (setq ad-return-value (current-indentation)))
+        ad-do-it))))
+
+(ad-activate 'python-calculate-indentation)
+
+(setq flymake-python-pyflakes-executable "flake8")
+
 (add-hook 'python-mode-hook
           (lambda ()
+            (flymake-python-pyflakes-load)
+            (flymake-mode t)
             (yas-minor-mode t)))
 
 ;; == shell-script mode
@@ -260,6 +307,22 @@
 (add-hook 'shell-script-mode-hook
           (lambda ()
             (flymake-shell-load)))
+
+;; == Text Mode
+(add-hook 'text-mode-hook
+          (lambda ()
+            (flyspell-mode t)))
+
+;; == Markdown Mode
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (flyspell-mode t)))
+
+;; == ReStructured Text Mode
+(add-hook 'rst-mode-hook
+          (lambda ()
+            (flyspell-mode t)))
+
 
 ;; == Load Major Customizations
 ;;

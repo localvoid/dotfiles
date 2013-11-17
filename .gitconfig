@@ -1,7 +1,7 @@
 [user]
         name = Boris Kaul
-        email = localvoid@gmail.com
-        signingkey = C640FCE1
+        email = me@boriskaul.com
+        signingkey = AE784DD2
 [core]
         editor = emacsclient -c -s main -a emacs
 [github]
@@ -10,11 +10,11 @@
         diff = auto
         status = auto
         branch = auto
-	ui = auto
+        ui = auto
         page = true
 [alias]
-	log1 = log --pretty=oneline --abbrev-commit
-	rlog = log --pretty=format:\"%h %Cblue%cr%Creset %cn %Cgreen%s%Creset\"
+        log1 = log --pretty=oneline --abbrev-commit
+        rlog = log --pretty=format:\"%h %Cblue%cr%Creset %cn %Cgreen%s%Creset\"
         lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
         mlog = log --merge -p
         lc = log ORIG_HEAD.. --stat --no-merges
@@ -23,8 +23,6 @@
         st = status
         ci = commit
         gmf = merge --ff-only
-[push]
-	default = matching
 [merge]
         conflictstyle = diff3
         log = true

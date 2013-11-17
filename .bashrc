@@ -5,14 +5,16 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+  source /etc/bashrc
 fi
 
 PS1="\e[48;5;236;38;5;220m\u\e[38;5;244m@\e[38;5;195m\h\e[38;5;244m:\e[38;5;255m\w\e[0m\n"
-#if type __git_ps1 | grep -q '^function$' 2>/dev/null; then
-#    GIT_PS1_SHOWDIRTYSTATE="enabled"
-#    PS1="${PS1}\$(__git_ps1 '[%s]')"
-#fi
+
+if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+  source /usr/share/git-core/contrib/completion/git-prompt.sh
+  GIT_PS1_SHOWDIRTYSTATE="enabled"
+  PS1="${PS1}\$(__git_ps1 '[%s]')"
+fi
 
 PS1="${PS1}> "
 
@@ -28,7 +30,7 @@ alias c=clear
 alias ..="cd .."
 alias ...="cd ../.."
 
-alias ps='ps auxf'
+alias ps='ps -ely'
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias less="less -R"
